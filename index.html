@@ -1,150 +1,192 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conta Daimoku Digitale</title>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom right, #ffe0b2, #f8bbd0, #fff9c4);
-    margin: 0;
-    padding: 20px;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conta Daimoku Digitale</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #ffe0b2, #f8bbd0, #fff9c4);
+      margin: 0;
+      padding: 20px;
+    }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    background: white;
-    border-radius: 25px;
-    padding: 30px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
-}
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      border-radius: 25px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
 
-h1 {
-    text-align: center;
-    color: #c2185b;
-}
+    h1 {
+      text-align: center;
+      color: #c2185b;
+    }
 
-.section {
-    margin-top: 25px;
-}
+    .section {
+      margin-top: 25px;
+    }
 
-label {
-    font-weight: bold;
-    color: #e65100;
-    display: block;
-    margin-bottom: 8px;
-}
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: #d32f2f;
+    }
 
-input, textarea {
-    width: 100%;
-    padding: 12px;
-    border-radius: 12px;
-    border: 2px solid #ffb74d;
-    font-size: 16px;
-}
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ffb74d;
+      border-radius: 12px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
 
-.counter-box {
-    text-align: center;
-    background: #fff3e0;
-    border-radius: 20px;
-    padding: 30px;
-    margin-top: 30px;
-}
+    .counter-box {
+      background-color: #fce4ec;
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      margin-top: 30px;
+    }
 
-.time {
-    font-size: 50px;
-    color: #ef6c00;
-    font-weight: bold;
-}
+    .time {
+      font-size: 64px;
+      font-weight: bold;
+      color: #d81b60;
+    }
 
-.minutes {
-    font-size: 35px;
-    color: #d81b60;
-}
+    .minutes {
+      font-size: 36px;
+      color: #8e24aa;
+      margin-bottom: 20px;
+    }
 
-button {
-    padding: 15px 25px;
-    margin: 15px;
-    border: none;
-    border-radius: 15px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-}
+    button {
+      width: 100%;
+      padding: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
 
-.add-btn {
-    background-color: #43a047;
-    color: white;
-}
+    .add-btn {
+      background-color: #4caf50;
+    }
 
-.reset-btn {
-    background-color: #e53935;
-    color: white;
-}
+    .reset-btn {
+      background-color: #e91e63;
+    }
 
-.note {
-    margin-top: 20px;
-    background: #fce4ec;
-    padding: 15px;
-    border-radius: 15px;
-    text-align: center;
-}
-</style>
+    .note {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
+  <div class="container">
     <h1>Conta Daimoku Digitale</h1>
 
     <div class="section">
-        <label>Nome del gruppo</label>
-        <input type="text" placeholder="Inserisci il nome del gruppo">
+      <label>Nome del gruppo</label>
+      <input type="text" id="groupNameInput" placeholder="Inserisci il nome del gruppo">
     </div>
 
     <div class="section">
-        <label>Obiettivi del gruppo</label>
-        <textarea rows="6" placeholder="Scrivi qui obiettivi, desideri o intenzioni..."></textarea>
+      <label>Obiettivi del gruppo</label>
+      <textarea id="objectivesInput" rows="6" placeholder="Scrivi qui obiettivi, desideri o intenzioni..."></textarea>
     </div>
 
     <div class="counter-box">
-        <div class="time" id="hours">0 h</div>
-        <div class="minutes" id="minutes">0 min</div>
-
-        <div>
-            <button class="add-btn" onclick="addMinutes()">+30 minuti</button>
-            <button class="reset-btn" onclick="resetCounter()">Azzera</button>
-        </div>
-
-        <div class="note">
-            Premi “+30 minuti” ogni volta che il gruppo completa mezz’ora di daimoku.
-        </div>
+      <div class="time" id="hours">0 h</div>
+      <div class="minutes" id="minutes">0 min</div>
+      
+      <button class="add-btn" onclick="addMinutes()" ontouchstart="">+30 minuti</button>
+      <button class="reset-btn" style="background-color: #f39c12; margin-top: 12px; margin-bottom: 12px;" onclick="removeMinutes()" ontouchstart="">-30 minuti (Correggi)</button>
+      <button class="reset-btn" onclick="resetCounter()" ontouchstart="">Azzera</button>
     </div>
-</div>
 
-<script>
-let totalMinutes = 0;
+    <div class="note">
+      Premi "+30 minuti" ogni volta che il gruppo completa mezz'ora di daimoku.
+    </div>
+  </div>
 
-function updateDisplay() {
-    let hours = Math.floor(totalMinutes / 60);
-    let minutes = totalMinutes % 60;
+  <script>
+    let totalMinutes = 0;
 
-    document.getElementById("hours").innerText = hours + " h";
-    document.getElementById("minutes").innerText = minutes + " min";
-}
+    // Al caricamento della pagina recupera i dati salvati
+    window.onload = function() {
+      if (localStorage.getItem("daimokuSalvati")) {
+        totalMinutes = parseInt(localStorage.getItem("daimokuSalvati"));
+        updateDisplay();
+      }
+      if (localStorage.getItem("nomeGruppo")) {
+        document.getElementById("groupNameInput").value = localStorage.getItem("nomeGruppo");
+      }
+      if (localStorage.getItem("obiettiviGruppo")) {
+        document.getElementById("objectivesInput").value = localStorage.getItem("obiettiviGruppo");
+      }
+    };
 
-function addMinutes() {
-    totalMinutes += 30;
-    updateDisplay();
-}
+    function updateDisplay() {
+      let hours = Math.floor(totalMinutes / 60);
+      let minutes = totalMinutes % 60;
+      
+      document.getElementById("hours").innerText = hours + " h";
+      document.getElementById("minutes").innerText = minutes + " min";
+    }
 
-function resetCounter() {
-    totalMinutes = 0;
-    updateDisplay();
-}
-</script>
+    function addMinutes() {
+      totalMinutes += 30;
+      localStorage.setItem("daimokuSalvati", totalMinutes);
+      updateDisplay();
+    }
+
+    function removeMinutes() {
+      if (totalMinutes >= 30) {
+        totalMinutes -= 30;
+        localStorage.setItem("daimokuSalvati", totalMinutes);
+        updateDisplay();
+      } else {
+        alert("Il conteggio è già a zero!");
+      }
+    }
+
+    function resetCounter() {
+      if (confirm("Vuoi davvero azzerare il conteggio?")) {
+        totalMinutes = 0;
+        localStorage.removeItem("daimokuSalvati");
+        localStorage.removeItem("nomeGruppo");
+        localStorage.removeItem("obiettiviGruppo");
+        
+        document.getElementById("groupNameInput").value = "";
+        document.getElementById("objectivesInput").value = "";
+        
+        updateDisplay();
+      }
+    }
+
+    // Salva i testi mentre l'utente scrive
+    document.getElementById("groupNameInput").addEventListener("input", function() {
+      localStorage.setItem("nomeGruppo", this.value);
+    });
+
+    document.getElementById("objectivesInput").addEventListener("input", function() {
+      localStorage.setItem("obiettiviGruppo", this.value);
+    });
+  </script>
 
 </body>
 </html>
