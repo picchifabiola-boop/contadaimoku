@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conta Daimoku Digitale</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #ffe0b2, #f8bbd0, #fff9c4);
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+h1 {
+    text-align: center;
+    color: #c2185b;
+}
+
+.section {
+    margin-top: 25px;
+}
+
+label {
+    font-weight: bold;
+    color: #e65100;
+    display: block;
+    margin-bottom: 8px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px solid #ffb74d;
+    font-size: 16px;
+}
+
+.counter-box {
+    text-align: center;
+    background: #fff3e0;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.time {
+    font-size: 50px;
+    color: #ef6c00;
+    font-weight: bold;
+}
+
+.minutes {
+    font-size: 35px;
+    color: #d81b60;
+}
+
+button {
+    padding: 15px 25px;
+    margin: 15px;
+    border: none;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-btn {
+    background-color: #43a047;
+    color: white;
+}
+
+.reset-btn {
+    background-color: #e53935;
+    color: white;
+}
+
+.note {
+    margin-top: 20px;
+    background: #fce4ec;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Conta Daimoku Digitale</h1>
+
+    <div class="section">
+        <label>Nome del gruppo</label>
+        <input type="text" placeholder="Inserisci il nome del gruppo">
+    </div>
+
+    <div class="section">
+        <label>Obiettivi del gruppo</label>
+        <textarea rows="6" placeholder="Scrivi qui obiettivi, desideri o intenzioni..."></textarea>
+    </div>
+
+    <div class="counter-box">
+        <div class="time" id="hours">0 h</div>
+        <div class="minutes" id="minutes">0 min</div>
+
+        <div>
+            <button class="add-btn" onclick="addMinutes()">+30 minuti</button>
+            <button class="reset-btn" onclick="resetCounter()">Azzera</button>
+        </div>
+
+        <div class="note">
+            Premi “+30 minuti” ogni volta che il gruppo completa mezz’ora di daimoku.
+        </div>
+    </div>
+</div>
+
+<script>
+let totalMinutes = 0;
+
+function updateDisplay() {
+    let hours = Math.floor(totalMinutes / 60);
+    let minutes = totalMinutes % 60;
+
+    document.getElementById("hours").innerText = hours + " h";
+    document.getElementById("minutes").innerText = minutes + " min";
+}
+
+function addMinutes() {
+    totalMinutes += 30;
+    updateDisplay();
+}
+
+function resetCounter() {
+    totalMinutes = 0;
+    updateDisplay();
+}
+</script>
+
+</body>
+</html>
