@@ -82,6 +82,10 @@
       background-color: #4caf50;
     }
 
+    .share-btn {
+      background-color: #0288d1;
+    }
+
     .reset-btn {
       background-color: #e91e63;
     }
@@ -115,7 +119,8 @@
       
       <button class="add-btn" onclick="addMinutes()" ontouchstart="">+30 minuti</button>
       <button class="reset-btn" style="background-color: #f39c12; margin-top: 12px; margin-bottom: 12px;" onclick="removeMinutes()" ontouchstart="">-30 minuti (Correggi)</button>
-      <button class="reset-btn" onclick="resetCounter()" ontouchstart="">Azzera</button>
+      <button class="share-btn" style="margin-bottom: 12px;" onclick="shareResults()" ontouchstart="">Condividi Risultati 📢</button>
+      <button class="reset-btn" onclick="resetCounter()" ontouchstart="">Azzera tutto</button>
     </div>
 
     <div class="note">
@@ -164,8 +169,30 @@
       }
     }
 
+    // NUOVA FUNZIONE PER LA CONDIVISIONE SMARTPHONE
+    function shareResults() {
+      let groupName = document.getElementById("groupNameInput").value || "Nessun nome";
+      let objectives = document.getElementById("objectivesInput").value || "Nessun obiettivo specificato";
+      let hours = Math.floor(totalMinutes / 60);
+      let minutes = totalMinutes % 60;
+      
+      let shareText = `✨ *Resoconto Conta Daimoku* ✨\n\n👥 *Gruppo:* ${groupName}\n🎯 *Obiettivo:* ${objectives}\n\n⏱️ *Totale Daimoku Recitato:* ${hours} h e ${minutes} min\n\nContinuiamo insieme! 🙏🌟`;
+
+      // Se il telefono supporta la condivisione di sistema (come WhatsApp, Messaggi, ecc.)
+      if (navigator.share) {
+        navigator.share({
+          title: 'Mio Conta Daimoku',
+          text: shareText
+        }).catch(err => console.log(err));
+      } else {
+        // Altrimenti copia il testo negli appunti per PC o browser vecchi
+        navigator.clipboard.writeText(shareText);
+        alert("Testo del resoconto copiato negli appunti! Ora puoi incollarlo dove vuoi (es. WhatsApp).");
+      }
+    }
+
     function resetCounter() {
-      if (confirm("Vuoi davvero azzerare il conteggio?")) {
+      if (confirm("Vuoi davvero azzerare il conteggio e cancellare tutti i dati?")) {
         totalMinutes = 0;
         localStorage.removeItem("daimokuSalvati");
         localStorage.removeItem("nomeGruppo");
